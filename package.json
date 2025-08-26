@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "github-build": "ng build --configuration production --base-href 'https://LeonJM.github.io/invitation-letter-for-tourist-visa-generator/'",
     "serve:ssr:invitation-letter-for-tourist-visa-generator": "node dist/invitation-letter-for-tourist-visa-generator/server/server.mjs"
   },
   "private": true,
