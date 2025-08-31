@@ -1,3 +1,13 @@
-<h1>
-  Yoooo this is a website
-</h1>
+<div #pdfContent id="pdf-content">
+  <h1>Welcome</h1>
+  <p>This is your customized PshgfskgfkiujsDF content!</p>
+
+  <form action="/action_page.php">
+    <label for="fname">First name:</label>
+    <input type="text" id="fname" name="fname"><br><br>
+    <label for="lname">Last name:</label>
+    <input type="text" id="lname" name="lname"><br><br>
+  </form>
+</div>
+
+<button (click)="generatePdf()">Download PDF</button>
