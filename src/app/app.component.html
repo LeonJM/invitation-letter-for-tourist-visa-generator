@@ -1,4 +1,4 @@
-<div #pdfContent id="pdf-content">
+<div id="form">
   <h1>Welcome</h1>
   <p>This is your customized PshgfskgfkiujsDF content!</p>
 
@@ -9,5 +9,20 @@
     <input type="text" id="lname" name="lname"><br><br>
   </form>
 </div>
+
+<div #pdfContent id="pdf-content">
+  <h1>Welcome</h1>
+  <p>TTHIOHJDLKNOISHDGLKNSGDHOGNSLKDGO</p>
+</div>
+
+<select id="template-selector" [(ngModel)]="selectedTemplateIndex" (change)="loadSelectedComponent()">
+  @for (template of templates; track template; let i = $index) {
+    <option [value]="i">
+      {{template.name}} {{i}}
+    </option>
+  }
+</select>
+
+<ng-container #templateHost></ng-container>
 
 <button (click)="generatePdf()">Download PDF</button>

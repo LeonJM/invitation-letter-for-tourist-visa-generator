@@ -1,36 +1,47 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import html2pdf from 'html2pdf.js';
+import { Component, ComponentRef, Type, ViewChild, ViewContainerRef } from '@angular/core';
+import { FooComponent } from './templates/foo/foo.component';
+import { FormsModule } from '@angular/forms'
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [
+    FormsModule
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'invitation-letter-for-tourist-visa-generator';
+  templates: Type<any>[] = [
+    FooComponent,
+    FooComponent,
+    FooComponent,
+    FooComponent,
+  ];
+  selectedTemplateIndex: number = 0;
+
+  @ViewChild('templateHost', { read: ViewContainerRef, static: true })
+  viewContainerRef!: ViewContainerRef;
+
+  selectedComponentRef?: ComponentRef<any>; // Store instance ref.
 
   constructor() {
 
   }
 
+  loadSelectedComponent(): void {
+    this.viewContainerRef.clear();
+
+    const selectedComponent = this.templates[this.selectedTemplateIndex];
+    const componentRef = this.viewContainerRef.createComponent(selectedComponent);
+
+    this.selectedComponentRef = componentRef; // Save the instance.
+  }
+
   generatePdf(): void {
-    const element = document.getElementById('pdf-content');
-
-    if (element) {
-      const opt = {
-        margin:       0.5,
-        filename:     'my-document.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2 },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-      };
-
-      html2pdf().set(opt).from(element).save();
+    if (this.selectedComponentRef?.instance?.generatePdf) {
+      this.selectedComponentRef.instance.generatePdf();
     }
-
   }
 }
 
